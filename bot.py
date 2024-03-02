@@ -138,7 +138,7 @@ def start(client,username):
     if not ok:
       checker(username,client)
     elif ok == "is taken":
-      print('- Taken UserName : '+username+' .')
+      print('- UserName is Availble Done Clime in Channel : '+username+' .')
     else:
       print('- UserName Availabe In Fragment.com : '+username+' .')
   except Exception as e:print(e)
