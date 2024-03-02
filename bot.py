@@ -64,7 +64,7 @@ fi = input(f'[?] file name > ')
 askk = input(f"[?] Do you want to send hits to Telegram? Y/N > ")
 if askk.lower() == 'y'or askk.lower() == 'yes':
     to = input(f"[?] ToKeN? > ")
-    id = input(f"[?] iD? >{ ")
+    id = input(f"[?] iD? > ")
 
 def ask_1_2():
     print(f'''[!] Note : The proxy or VPN must be located in the combo country .
