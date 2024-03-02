@@ -129,7 +129,7 @@ def usernameG():
   b = ''.join(choice('qwertyuiopasdfghjklzxcvbnm') for i in range(1))
   n = ''.join(choice('1234567890') for i in range(1))
   nn = ''.join(choice('1234567890') for i in range(1))
-  return k+'_'+nn+'_'+b
+  return 'Cl'+'im'+'est'
 # start checking
 def start(client,username):
   try:ok = fragment(username)
