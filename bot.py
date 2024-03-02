@@ -129,7 +129,7 @@ def usernameG():
   b = ''.join(choice('qwertyuiopasdfghjklzxcvbnm') for i in range(1))
   n = ''.join(choice('1234567890') for i in range(1))
   nn = ''.join(choice('1234567890') for i in range(1))
-  return 'z'+'_'+'l_4'
+  return k+'_'+nn+'_'+b
 # start checking
 def start(client,username):
   try:ok = fragment(username)
@@ -138,7 +138,7 @@ def start(client,username):
     if not ok:
       checker(username,client)
     elif ok == "is taken":
-      print('- UserName is Availble Done Clime in Channel : '+username+' .')
+      print('- Taken UserName : '+username+' .')
     else:
       print('- UserName Availabe In Fragment.com : '+username+' .')
   except Exception as e:print(e)
