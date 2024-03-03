@@ -1,14 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*- 
-
-# ┌──────────────────────────────────────┐
-# │                                   │
-# │   > installing guide :               │
-# │      $ pip install pyrogram==2.0.41  │
-# │      $ pip install asyncio           │
-# └──────────────────────────────────────┘
-# ملف تم تنشره هادی تنشر اذکر حقوق @w_1_4
-
 import os, random, asyncio, time
 from pyrogram import Client, filters, errors
 from pyrogram.raw import functions, types
@@ -19,7 +8,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 api_id = 21236276 # main api id from my.telegram.org/apps
 api_hash = '775f8c2f523b73c64a1a2149458480f2' # main api hash from my.telegram.org/apps
 bot_token = '7058880196:AAHOBbbTk1ZA0Nu1QOXPX1q26CpBfn3Rmrg' # main bot token from @botFather
-bot_admins = [000, 00] # admin ايدي
+bot_admins = 7079472831 # admin ايدي
 #           ---         ---         ---         #
 sleeping = 2 # main sleep time in sec ***[DO NOT EDIT]***
 step = None # current step ***[DO NOT EDIT]***
