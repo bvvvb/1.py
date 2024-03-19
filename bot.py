@@ -4,8 +4,8 @@ abc="qwertyuiopasdfghjklzxcvbnm1234567890"
 
 ra=0
 print(f"		[✓] Get username Available  <\>")
-id = input(f'[✓] Enter ID : '+F)
-token = input(f'[✓] Enter Token : '+F)
+id = input(f'[✓] Enter ID : ')
+token = input(f'[✓] Enter Token : ')
 def checkuser():
     user1= str(''.join((random.choice(abc) for i in range(1))))
     user2= str(''.join((random.choice(abc) for i in range(1))))
