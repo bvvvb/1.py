@@ -10,9 +10,9 @@ def checkuser():
     user1= str(''.join((random.choice(abc) for i in range(1))))
     user2= str(''.join((random.choice(abc) for i in range(1))))
     user3= str(''.join((random.choice(abc) for i in range(1))))
-    a1 = ({user1}_{user2}_{user3})
-    a2 = ({user1}.{user2}.{user3})
-    a3 = ({user1}_{user2}_{user3}_{user3})
+    a1 = ({user1}+"_"+{user2}+"_"+{user3})
+    a2 = ({user1}+"."+{user2}+"."+{user3})
+    a3 = ({user1}+"_"+{user2}+"_"+{user3}+"_"+{user3})
     aaa = (a1, a2, a3)
     user= random.choice(aaa)
     url = requests.post('https://www.instagram.com/accounts/web_create_ajax/attempt/',headers ={'Host':'www.instagram.com',
