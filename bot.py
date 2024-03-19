@@ -10,7 +10,11 @@ def checkuser():
     user1= str(''.join((random.choice(abc) for i in range(1))))
     user2= str(''.join((random.choice(abc) for i in range(1))))
     user3= str(''.join((random.choice(abc) for i in range(1))))
-    user=(f"{user1}_{user2}{user3}__")
+    a1 = ({user1}_{user2}_{user3})
+    a2 = ({user1}.{user2}.{user3})
+    a3 = ({user1}_{user2}_{user3}_{user3})
+    aaa = (a1, a2, a3)
+    user= random.choice(aaa)
     url = requests.post('https://www.instagram.com/accounts/web_create_ajax/attempt/',headers ={'Host':'www.instagram.com',
 'content-length':'85',
 'sec-ch-ua':'" Not A;Brand";v="99", "Chromium";v="101"',
@@ -46,11 +50,9 @@ def checkuser():
     	t.start()
     else:
     	text=f'''
-𓆩 𝒏𝒆𝒘 𝒖𝒔𝒆𝒓 𝒂𝒗𝒂𝒊𝒍𝒂𝒃𝒍𝒆  ! 
-╭۪ᰲ╍ׂ╌ׂ╍۪ᰲ╮╌ᰲ┄ׅ╍╌ᰲ┄ׅ╍╌ᰲ┄ׅ╍╌ᰲ┄ׅׅ╍╌ᰲ╌ׅ╮
-┊   𝒖𝒔𝒆𝒓𝒏𝒂𝒎𝒆 : ❲@{user}❳
-╰۫᷼╍ׅ╌ׅ╍۫᷼╯╌᷼┄۫╍╌᷼┄۫╍╌᷼┄۫╍╌᷼┄۫╍╌᷼╌۫╯ ‌
-𓆩 𝒃𝒚 : @kckkkkc !
+  𝒏𝒆𝒘 𝒖𝒔𝒆𝒓 𝒂𝒗𝒂𝒊𝒍𝒂𝒃𝒍𝒆  ! 
+  𝒖𝒔𝒆𝒓𝒏𝒂𝒎𝒆 : ❲ @{user} ❳
+  𝒃𝒚 : @kckkkkc !
 '''
     	requests.post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={id}&text={text}')
     	print(f"Username > {user} > [✓] Available ")
