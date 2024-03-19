@@ -1,169 +1,100 @@
-from os import system, name, path
-from time import sleep
-from random import choice
-from base64 import b64decode
-try:
-    from requests import get
-except:
-    system('pip install requests')
-    from requests import get
-try:
-    from telethon import TelegramClient, sync, errors, functions, types
-    from telethon.tl.functions.account import CheckUsernameRequest, UpdateUsernameRequest
-except:
-    system('pip install telethon')
-    from telethon import TelegramClient, sync, errors, types, functions
-    from telethon.tl.functions.account import CheckUsernameRequest, UpdateUsernameRequest
-try:
-    from bs4 import BeautifulSoup as S
-except:
-    system('pip install beautifulsoup')
-    from bs4 import BeautifulSoup as S
-try:
-    from fake_useragent import UserAgent
-except:
-    system('pip install fake_useragent')
-    from fake_useragent import UserAgent
-try:
-	from datetime import datetime
-except:
-	system('pip install datetime')
-	from datetime import datetime
-# Import/Download Libraries
-me = "@K_n_Y"
-def clear():
-	system('cls' if name=='nt' else 'clear')
-# for check flood , error
-def channels2(client, username):
-    di = client.get_dialogs()
-    for chat in di:
-        if chat.name == f'Updated!' and not chat.entity.username:
-            client(functions.channels.DeleteChannelRequest(channel=chat.entity))
-            return False
-    return True
-# for checking username (taken,nft,sold,availabe) by t.me/xx_amole
-def fragment(username):
-    headers = {
-        'User-Agent': UserAgent().random,
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'TE': 'trailers'}
-    response = get(f'https://fragment.com/username/{username}', headers=headers)
-    soup = S(response.content, 'html.parser')
-    ok = soup.find("meta", property="og:description").get("content")
-    if "An auction to get the Telegram" in ok or "Telegram and secure your ownership" in ok or "Check the current availability of" in ok or "Secure your name with blockchain in an ecosystem of 700+ million users" in ok:return True
-    elif "is taken" in ok:return "is taken"
-    else:return False
-# for claim username
-def telegram(client,claim,username):
-	if claim:
-		text = f"- Sir New Catch 🐊\n• UserName : @{username} .\n• UserName Person : @{client.get_me().username} ."
-		try:print("-")
-		except:pass
-	else:
-		text = f"- Sir New Catch 🐊\n• UserName : @{username} .\n• UserName Person : @{client.get_me().username} ."
-	client.send_message('me',text)
-def climed(client,username):
-    result = client(functions.channels.CreateChannelRequest(
-		title=f'Updated!',
-        about=f'always #usa , @usa626',
-        megagroup=False))
-    try:
-        client(functions.channels.UpdateUsernameRequest(
-        channel=result.chats[0],
-        username=username))
-        client.send_message(username,f'- Sir New Catch 🐊\n• UserName : @{username} .\n• UserName Person : @{client.get_me().username} .')
-        return True
-    except Exception as e:client.send_message('me',f'⌯ Error Message .\nMessage : {e} .');return False
-# for checking username
-def checker(username,client):
-		try:
-			check = client(CheckUsernameRequest(username=username))
-			if check:
-				print('• UserName ['+username+' .'+"] , Available.")
-				claimer = climed(client,username)
-				if claimer and fragment(username) == "is taken":claim = True
-				else:claim = False
-				print('Did i take it?'+str(claim)+'\n'+'_ '*20)
-				telegram(client,claim,username)
-				flood = channels2(client,username)
-				if not flood:
-					with open('flood.txt', 'a') as floodX:
-						floodX.write(username + "\n")
-			else:
-				print('• UserName ['+username+' .'+"] , Taken.")
-		except errors.rpcbaseerrors.BadRequestError:
-			print('• UserName ['+username+' .'+"] , Banned.")
-			open("banned4.txt","a").write(username+'\n')
-		except errors.FloodWaitError as timer:
-			print('• Flood ['+timer.second+' .'+"] , Taken")
-		except errors.UsernameInvalidError:
-			print('- Error UserName : '+username+' .')
-# for generate username
-def usernameG():
-	k = ''.join(choice('qwertyuiopasdfghjklzxcvbnm') for i in range(1))
-	a = ''.join(choice('qwertyuiopasdfghjklzxcvbnm') for i in range(1))
-	h = ''.join(choice('qwertyuiopasdfghjklzxcvbnm') for i in range(1))
-	n = ''.join(choice('1234567890') for i in range(1))
-	n2 = ''.join(choice('1234567890') for i in range(1))
-	n3 = ''.join(choice('1234567890') for i in range(1))
-	n4 = ''.join(choice('1234567890') for i in range(1))
-	v1 = k+n+n+"_"+k
-	v2 = k+a+n+bot
-	v3 = k+n+a+a+a
-	v4 = k+a+a+a+n
-	v5 = a+a+a+k+n
-	v6 = a+a+a+k+h
-	v7 = k+a+h+h+h
-	v8 = k+a+a+a+h
-	v9 = k+n+n2+n3+n4+k
-	v10 = k+"_"+a+a+a
-	ls = (v1,v2,v3,v4,v5,v6,v7,v8,v9,v10)
-	u = choice(ls)
-	return u
-# start checking
-def start(client,username):
-	try:ok = fragment(username)
-	except:return
-	try:
-		if not ok:
-			checker(username,client)
-		elif ok == "is taken":
-			client.send_message('me',f'Taken'+username)
-			print('-Taken : '+username+' .')
-		else:
-			client.send_message('me',f'fragment'+username)
-			print('- fragment : '+username+' .')
-	except Exception as e:print(e)
-# get client
-def clientX():
-	client = TelegramClient("Client", b64decode("MjUzMjQ1ODE=").decode(),b64decode("MDhmZWVlNWVlYjZmYzBmMzFkNWYyZDIzYmIyYzMxZDA=").decode())
-	try:client.start()
-	except:pass
-	try:client(JoinChannelRequest(get('https://pastebin.com/raw/SgDUMsFb').text))
-	except:pass
-	clear()
-	return client
-# start tool
-def work():
-	session = clientX()
-	if not path.exists('banned4.txt'):
-		with open('banned4.txt','w') as new:pass
-	if not path.exists('flood.txt'):
-		with open('flood.txt','w') as new:pass
-	while True:
-		username = usernameG()
-		with open('banned4.txt', 'r') as file:
-			check_username = file.read()
-		if username in check_username:
-			print('- Banned1 UserName : '+username+' .')
-			continue
-		start(session,username)
-work()
+import telebot
+import requests
+import random
+from telebot import types
+import requests, random
+from colorama import Fore
+
+myadmin = input('id :')
+aa = input('TOKEN :')
+N = 0
+bot = telebot.TeleBot(aa)
+
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    iddu = str(message.from_user.id)
+    if iddu in myadmin:
+        nam = message.from_user.first_name
+        mas = types.InlineKeyboardMarkup(row_width=1)
+        D = types.InlineKeyboardButton('programmer?', url='https://t.me/kckkkc')
+        mas.add(D)
+        fg = bot.send_message((message.chat.id), f"Hi send , ” /sta  ”", reply_markup=mas)
+    else:
+        mas = types.InlineKeyboardMarkup(row_width=1)
+        A = types.InlineKeyboardButton('aa_usa', url='https://t.me/usa626')
+        C = types.InlineKeyboardButton('aBooD', url='https://t.me/kckkkkc')
+        mas.add(A, C)
+        fg = bot.send_message((message.chat.id), '⚠️ || عذرا هاذة لبوت ليس مجاني قم بمراسلة المطور لتفعيل !!', reply_markup=mas)
+
+
+@bot.message_handler(func=(lambda message: True))
+def send_welcome(message):
+    global ses
+    global t
+    i = 0
+    if message.text == '/sta' or message.reply_to_message:
+        if message.text == '/sta':
+            bot.send_message(message.chat.id, '⌥ Enter SessionId')
+        if message.reply_to_message:
+            mes = message.reply_to_message.text
+            if mes == '⌥ Enter SessionId':
+                with open('sessionId.txt', 'w') as (x):
+                    x.write(message.text)
+                    bot.send_message(message.chat.id, 'Status done')
+                    i = 1
+    if i == 1:
+        time.sleep(1.5)
+        bot.send_message(message.chat.id, 'Number of username required')
+    if message.reply_to_message:
+        mes = message.reply_to_message.text
+        if mes == 'Number of username required':
+            try:
+                t = int(message.text)
+                mas = types.InlineKeyboardMarkup(row_width=2)
+                A = types.InlineKeyboardButton('بدء', callback_data='F1')
+                mas.add(A)
+                ses = open('sessionId.txt', 'r').read().splitlines()
+                fg = bot.send_message((message.chat.id), f"{t} \n {ses}", reply_markup=mas)
+            except:
+                bot.send_message(message.chat.id, '{t} \n {ses}')
+
+
+@bot.callback_query_handler(func=(lambda call: True))
+def sdd(call):
+    if call.data == 'F1':
+        bad = 0
+        good = 0
+        kol = 0
+        error = 0
+        payload = ''
+        headers = {'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 
+         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36', 
+         'Connection':'close', 
+         'Host':'www.tiktok.com', 
+         'Accept-Encoding':'gzip, deflate', 
+         'Cache-Control':'max-age=0'}
+        tuks1 = 'poiuytrewqasdfghjklmnbvcxz12'
+        sess = open('sessionId.txt', 'r').read()
+        for y in range(t):
+            kol += 1
+            ruks = str(''.join((random.choice(tuks1) for i in range(4))))
+            url = 'https://www.tiktok.com/api/uniqueid/check/?region=SA&aid=1233&unique_id=' + ruks + '&app_language=ar'
+            cookies = {'sessionid': sess}
+            r = requests.request('GET', url, data=payload, headers=headers, cookies=cookies)
+            print(r.json())
+            try:
+                post = str(r.json()['status_msg'])
+                if post == '':
+                    timee = time.asctime()
+                    good += 1
+                    bot.send_message(call.message.chat.id, f"USER TIKTOK ✪\n\n≋ user : {ruks}\n\n≋ {timee}")
+                else:
+                    bad += 1
+            except:
+                error += 1
+            else:
+                bot.edit_message_text(chat_id=(call.message.chat.id), message_id=(call.message.message_id), text=f"STARTED ▶️\n\n🆔 ⋮ [{sess}]\n\n≋ Required number ⋮ {t}\n\n≋ \u2066∼❃∼User ⋮ {ruks}\n≋ \u2066∼✓∼ Done ⋮ {good}\n≋ \u2066∼✘∼Bad ⋮ {bad}\n≋ \u2066∼✘∼Error ⋮ {error}\n\n≋ Users ⋮ {kol}")
+
+
+if __name__ == '__main__':
+    bot.polling(none_stop=True)
