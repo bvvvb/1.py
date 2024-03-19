@@ -1,100 +1,61 @@
-import telebot
-import requests
-import random
-from telebot import types
-import requests, random
-from colorama import Fore
+import requests,os,random,threading
+abc="qwertyuiopasdfghjklzxcvbnm1234567890"
 
-myadmin = input('id :')
-aa = input('TOKEN :')
-N = 0
-bot = telebot.TeleBot(aa)
 
-@bot.message_handler(commands=['start'])
-def send_welcome(message):
-    iddu = str(message.from_user.id)
-    if iddu in myadmin:
-        nam = message.from_user.first_name
-        mas = types.InlineKeyboardMarkup(row_width=1)
-        D = types.InlineKeyboardButton('programmer?', url='https://t.me/kckkkc')
-        mas.add(D)
-        fg = bot.send_message((message.chat.id), f"Hi send , ” /sta  ”", reply_markup=mas)
+ra=0
+print(f"		[✓] Get username Available  <\>")
+id = input(f'[✓] Enter ID : '+F)
+token = input(f'[✓] Enter Token : '+F)
+def checkuser():
+    user1= str(''.join((random.choice(abc) for i in range(1))))
+    user2= str(''.join((random.choice(abc) for i in range(1))))
+    user3= str(''.join((random.choice(abc) for i in range(1))))
+    user=(f"{user1}_{user2}{user3}__")
+    url = requests.post('https://www.instagram.com/accounts/web_create_ajax/attempt/',headers ={'Host':'www.instagram.com',
+'content-length':'85',
+'sec-ch-ua':'" Not A;Brand";v="99", "Chromium";v="101"',
+'x-ig-app-id':'936619743392459',
+'x-ig-www-claim':'0',
+'sec-ch-ua-mobile':'?0',
+'x-instagram-ajax':'81f3a3c9dfe2',
+'content-type':'application/x-www-form-urlencoded',
+'accept':'*/*',
+'x-requested-with':'XMLHttpRequest',
+'x-asbd-id':'198387',
+'user-agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.40 Safari/537.36',
+'x-csrftoken':'jzhjt4G11O37lW1aDFyFmy1K0yIEN9Qv',
+'sec-ch-ua-platform':'"Linux"',
+'origin':'https://www.instagram.com',
+'sec-fetch-site':'same-origin',
+'sec-fetch-mode':'cors',
+'sec-fetch-dest':'empty',
+'referer':'https://www.instagram.com/accounts/emailsignup/',
+'accept-encoding':'gzip, deflate, br',
+'accept-language':'en-IQ,en;q=0.9',
+'cookie':'csrftoken=jzhjt4G11O37lW1aDFyFmy1K0yIEN9Qv',
+'cookie':'mid=YtsQ1gABAAEszHB5wT9VqccwQIUL',
+'cookie':'ig_did=227CCCC2-3675-4A04-8DA5-BA3195B46425',
+'cookie':'ig_nrcb=1'},data=f'email=aakmnnsjskksmsnsn%40gmail.com&username={user}&first_name=&opt_into_one_tap=false')
+    if '{"message":"feedback_required","spam":true,"feedback_title":"Try Again Later","feedback_message":"We limit how often you can do certain things on Instagram to protect our community. Tell us if you think we made a mistake.","feedback_url":"repute/report_problem/scraping/","feedback_appeal_label":"Tell us","feedback_ignore_label":"OK","feedback_action":"report_problem","status":"fail"}' in url.text:
+    	print(f"Username > {user} > [✘] Not Available ")
+    	t = threading.Thread(target=checkuser)
+    	t.start()
+    elif  '"errors": {"username":' in url.text or  '"code": "username_is_taken"' in url.text:
+    	print(f"Username > {user} > [✘] Not Available ")
+    	t = threading.Thread(target=checkuser)
+    	t.start()
     else:
-        mas = types.InlineKeyboardMarkup(row_width=1)
-        A = types.InlineKeyboardButton('aa_usa', url='https://t.me/usa626')
-        C = types.InlineKeyboardButton('aBooD', url='https://t.me/kckkkkc')
-        mas.add(A, C)
-        fg = bot.send_message((message.chat.id), '⚠️ || عذرا هاذة لبوت ليس مجاني قم بمراسلة المطور لتفعيل !!', reply_markup=mas)
-
-
-@bot.message_handler(func=(lambda message: True))
-def send_welcome(message):
-    global ses
-    global t
-    i = 0
-    if message.text == '/sta' or message.reply_to_message:
-        if message.text == '/sta':
-            bot.send_message(message.chat.id, '⌥ Enter SessionId')
-        if message.reply_to_message:
-            mes = message.reply_to_message.text
-            if mes == '⌥ Enter SessionId':
-                with open('sessionId.txt', 'w') as (x):
-                    x.write(message.text)
-                    bot.send_message(message.chat.id, 'Status done')
-                    i = 1
-    if i == 1:
-        time.sleep(1.5)
-        bot.send_message(message.chat.id, 'Number of username required')
-    if message.reply_to_message:
-        mes = message.reply_to_message.text
-        if mes == 'Number of username required':
-            try:
-                t = int(message.text)
-                mas = types.InlineKeyboardMarkup(row_width=2)
-                A = types.InlineKeyboardButton('بدء', callback_data='F1')
-                mas.add(A)
-                ses = open('sessionId.txt', 'r').read().splitlines()
-                fg = bot.send_message((message.chat.id), f"{t} \n {ses}", reply_markup=mas)
-            except:
-                bot.send_message(message.chat.id, '{t} \n {ses}')
-
-
-@bot.callback_query_handler(func=(lambda call: True))
-def sdd(call):
-    if call.data == 'F1':
-        bad = 0
-        good = 0
-        kol = 0
-        error = 0
-        payload = ''
-        headers = {'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 
-         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36', 
-         'Connection':'close', 
-         'Host':'www.tiktok.com', 
-         'Accept-Encoding':'gzip, deflate', 
-         'Cache-Control':'max-age=0'}
-        tuks1 = 'poiuytrewqasdfghjklmnbvcxz12'
-        sess = open('sessionId.txt', 'r').read()
-        for y in range(t):
-            kol += 1
-            ruks = str(''.join((random.choice(tuks1) for i in range(4))))
-            url = 'https://www.tiktok.com/api/uniqueid/check/?region=SA&aid=1233&unique_id=' + ruks + '&app_language=ar'
-            cookies = {'sessionid': sess}
-            r = requests.request('GET', url, data=payload, headers=headers, cookies=cookies)
-            print(r.json())
-            try:
-                post = str(r.json()['status_msg'])
-                if post == '':
-                    timee = time.asctime()
-                    good += 1
-                    bot.send_message(call.message.chat.id, f"USER TIKTOK ✪\n\n≋ user : {ruks}\n\n≋ {timee}")
-                else:
-                    bad += 1
-            except:
-                error += 1
-            else:
-                bot.edit_message_text(chat_id=(call.message.chat.id), message_id=(call.message.message_id), text=f"STARTED ▶️\n\n🆔 ⋮ [{sess}]\n\n≋ Required number ⋮ {t}\n\n≋ \u2066∼❃∼User ⋮ {ruks}\n≋ \u2066∼✓∼ Done ⋮ {good}\n≋ \u2066∼✘∼Bad ⋮ {bad}\n≋ \u2066∼✘∼Error ⋮ {error}\n\n≋ Users ⋮ {kol}")
-
-
-if __name__ == '__main__':
-    bot.polling(none_stop=True)
+    	text=f'''
+𓆩 𝒏𝒆𝒘 𝒖𝒔𝒆𝒓 𝒂𝒗𝒂𝒊𝒍𝒂𝒃𝒍𝒆  ! 
+╭۪ᰲ╍ׂ╌ׂ╍۪ᰲ╮╌ᰲ┄ׅ╍╌ᰲ┄ׅ╍╌ᰲ┄ׅ╍╌ᰲ┄ׅׅ╍╌ᰲ╌ׅ╮
+┊   𝒖𝒔𝒆𝒓𝒏𝒂𝒎𝒆 : ❲@{user}❳
+╰۫᷼╍ׅ╌ׅ╍۫᷼╯╌᷼┄۫╍╌᷼┄۫╍╌᷼┄۫╍╌᷼┄۫╍╌᷼╌۫╯ ‌
+𓆩 𝒃𝒚 : @kckkkkc !
+'''
+    	requests.post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={id}&text={text}')
+    	print(f"Username > {user} > [✓] Available ")
+    	t = threading.Thread(target=checkuser)
+    	t.start()
+#checkuser()
+t = threading.Thread(target=checkuser)
+t.start()
