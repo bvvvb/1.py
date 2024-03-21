@@ -53,9 +53,7 @@ def sgg(user):
       tok+=1
     else:
       ok+=1
-      print('\n')
-      print('   '*10)
-      gg = f'[green] \nuSer : {user} '
+      gg = f'New Clime : {user} '
       SS(g(gg))
       tle = f"yo nigga iam abd : @{user}"
       requests.post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={id}&text={tle}')
