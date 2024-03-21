@@ -33,7 +33,7 @@ def us():
          u10 = (ss+ee+ee+ee+ss)
          u11 = (ee+ee+sss+'_'+sss)
          u12 = (ee+ee+s+'_'+ee)
-         u13 = (ee+e+e+'_'+e+)
+         u13 = (ee+e+e+'_'+e)
          u14 = (ss+ss+'.'+s+ee+ss)
          j= (u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14)
          user = random.choice(j)
