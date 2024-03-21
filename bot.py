@@ -9,17 +9,16 @@ AB_KH='\033[37m'
 AH_T='\033[91m'
 AKH_T='\033[92m'
 AS_F='\033[93m'
-id = '6781247348'
-token = '6938505054:AAFvsulp1KybWDJCECN3IYP1HyREy1vLbvg'
+id = input('Enter iD : ')
+token = input('Enter Token : ')
 os.system('clear')
 def us():
   saa="1234567890qwertyuiopasdfghjklzxcvbnm"
-  see="._"
   while True:
          s = str(''.join((random.choice(saa) for i in range(1))))
          ss = str(''.join((random.choice(saa) for i in range(1))))
          sss = str(''.join((random.choice(saa) for i in range(1))))
-         ee = str(''.join((random.choice(see) for i in range(1))))
+         ee = str(''.join((random.choice(saa) for i in range(1))))
          e = str(''.join((random.choice(saa) for i in range(1))))
          u1 = (s+'_'+ee+'_'+sss)
          u2 = (sss+'_'+sss+'_'+ss)
@@ -34,7 +33,7 @@ def us():
          u11 = (ee+ee+sss+'_'+sss)
          u12 = (ee+ee+s+'_'+ee)
          u13 = (ee+e+e+'_'+e)
-         u14 = (ss+ss+'.'+s+ee+ss)
+         u14 = (ss+ss+'.'+s+ss)
          j= (u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14)
          user = random.choice(j)
          sgg(user)
