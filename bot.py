@@ -33,7 +33,7 @@ def us():
          u11 = (ee+ee+sss+'_'+sss)
          u12 = (ee+ee+s+'_'+ee)
          u13 = (ee+e+e+'_'+e)
-         u14 = (ss+ss+'.'+s+ss)
+         u14 = (ss+ss+'.'+s+sss+ee+ss)
          j= (u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14)
          user = random.choice(j)
          sgg(user)
@@ -61,6 +61,6 @@ def sgg(user):
       requests.post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={id}&text={tle}')
 #us()
 import threading
-for i in range(50):
+for i in range(1):
  t=threading.Thread(target=us,args=())
  t.start()
