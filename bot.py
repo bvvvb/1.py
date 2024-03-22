@@ -81,6 +81,6 @@ def sgg(user):
       requests.post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={id}&text={tle}')
 #us()
 import threading
-for i in range(5):
+for i in range(1):
  t=threading.Thread(target=us,args=())
  t.start()
