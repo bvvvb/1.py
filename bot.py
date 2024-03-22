@@ -45,7 +45,18 @@ def us():
          u23 = ('_'+s+'.'+ee+ss)
          u24 = (e+'.'+s+ss)
          u25 = (ss+s+e+ee)
-         j= (u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, u20, u21, u22, u23, u24, u25)
+         u26 = (ss+s+s+s+ss+s)
+         u27 = (ss+s+s+ss+s+ss)
+         u28 = (ss+s+ss+s+s+s)
+         u29 = (ss+s+s+s+s+ss)
+         u30 = (s+s+s+s+s+ss)
+         u31 = (ss+s+s+s+s+s)
+         u32 = (s+s+ss+ss+s)
+         u33 = (s+ss+ss+s+s)
+         u34 = (s+ss+ss+ss+s)
+         u35 = (ss+s+s+s+ss)
+         u36 = (s+s+ss+'_'+ss)
+         j= (u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, u20, u21, u22, u23, u24, u25, u26, u27, u28, u29, u30, u31, u32, u33, u34, u35, u36)
          user = random.choice(j)
          sgg(user)
 def sgg(user):
@@ -70,6 +81,6 @@ def sgg(user):
       requests.post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={id}&text={tle}')
 #us()
 import threading
-for i in range(1):
+for i in range(5):
  t=threading.Thread(target=us,args=())
  t.start()
