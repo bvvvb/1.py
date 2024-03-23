@@ -67,7 +67,7 @@ class Main:
 
     def setup(self):
         error = False
-        if os.path.exists((usernames_txt := 'Usernames.txt')):
+        if os.path.exists((usernames_txt := 'abd.txt')):
             with open(usernames_txt, 'r', encoding='UTF-8', errors='replace') as f:
                 self.usernames = f.read().splitlines()
             self.total_usernames = len(self.usernames)
@@ -78,7 +78,7 @@ class Main:
             error = True
 
         if error:
-            print('[!] Paste the usernames in Usernames.txt')
+            print('[!] Paste the usernames in abd.txt')
             os.system(
                 'title [TikTok Username Checker] - Restart required && '
                 'pause >NUL && '
