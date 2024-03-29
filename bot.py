@@ -1,95 +1,51 @@
-import os
-import time
-import requests
+import requests,sys,os,json,random 
+from discord_webhook import DiscordWebhook
+from rich import print as SS
+from rich.panel import Panel as g
+from rich.console import Console
+from user_agent import generate_user_agent
+Ss = Console()
+ok,tok,bad=0,0,0
+AB_KH='\033[37m'
+AH_T='\033[91m'
+AKH_T='\033[92m'
+AS_F='\033[93m'
+def us():
+  saa="1234567890qwertyuiopasdfghjklzxcvbnm"
+  while True:
+         s = str(''.join((random.choice(saa) for i in range(1))))
+         ss = str(''.join((random.choice(saa) for i in range(1))))
+         sss = str(''.join((random.choice(saa) for i in range(1))))
+         ee = str(''.join((random.choice(saa) for i in range(1))))
+         e = str(''.join((random.choice(saa) for i in range(1))))
+         u1 = (s+'_'+ee+'_'+sss+ss+s)
+         u2 = (s+ss+sss+e+ee+'_'+s+'_')
+         j= (u1, u2)
+         user = random.choice(j)
+         sgg(user)
+def sgg(user):
+    gd = str(generate_user_agent())
+    global ok,tok,bad
+    sys.stdout.write(f'\r   {AKH_T}Done : {ok}{AB_KH} | BaD : {bad} {AB_KH} | TaKeN : {tok} {AKH_T}'),
+    sys.stdout.flush()
+    headers = {'Host':'www.instagram.com','content-length':'85','sec-ch-ua':'" Not A;Brand";v="99", "Chromium";v="101"','x-ig-app-id':'936619743392459','x-ig-www-claim':'0','sec-ch-ua-mobile':'?0','x-instagram-ajax':'81f3a3c9dfe2','content-type': 'application/x-www-form-urlencoded','accept':'*/*','x-requested-with':'XMLHttpRequest','x-asbd-id':'198387','user-agent':f'{gd}','x-csrftoken':'jzhjt4G11O37lW1aDFyFmy1K0yIEN9Qv','sec-ch-ua-platform':'"Linux"','origin':'https://www.instagram.com','sec-fetch-site':'same-origin','sec-fetch-mode':'cors','sec-fetch-dest':'empty','referer':'https://www.instagram.com/accounts/emailsignup/','accept-encoding':'gzip, deflate, br','accept-language':'en-IQ,en;q=0.9','cookie':'csrftoken=jzhjt4G11O37lW1aDFyFmy1K0yIEN9Qv','cookie':'mid=YtsQ1gABAAEszHB5wT9VqccwQIUL','cookie':'ig_did=227CCCC2-3675-4A04-8DA5-BA3195B46425','cookie':'ig_nrcb=1'
+  }
+    data= f'email=sgahahfdggsdfs%40gmail.com&username={user}&first_name=&opt_into_one_tap=false'
+    res = requests.post('https://www.instagram.com/accounts/web_create_ajax/attempt/', headers=headers, data=data).text
+#    res_dict = json.loads(res)
+    if "status" in res and "fail" in res:
+      bad+=1
+    elif '"errors": {"username":' in res or '"code": "username_is_taken"' in res:
+      tok+=1
+    else:
+      ok+=1
+      gg = f'New Clime : {user} '
+      SS(g(gg))
+      text = f"yo nigga iam @usaByte : @{user}"
+webhook = DiscordWebhook(url="https://discord.com/api/webhooks/1223059443407781918/0y2c2Ud8H4W_qKZ1MGYdDWktB9dObor2EI12KZg2K73JMLVPVNA4piIuST8tOF7Wt0og", content="yo nigga iam @usaByte : @{user}")
+response = webhook.execute()
+#us()
 import threading
-from urllib3 import disable_warnings
-disable_warnings()
-
-
-class Main:
-    def __init__(self):
-        self.variables = {
-            'available': 0,
-            'unavailable': 0,
-            'retries': 0
-        }
-
-    def _checker(self, arg):
-        try:
-            available = requests.get(
-                'https://api16-normal-c-useast1a.tiktokv.com/aweme/v1/unique/id/check/?device_id=66'
-                '22992447704270341&os_version=13.6.1&app_name=musical_ly&version_code=17.4.0&channe'
-                f'l=App%20Store&device_platform=iphone&device_type=iPhone10,5&unique_id={arg}',
-                verify=False, headers={
-                    'x-Tt-Token': '0344ccb2867669f08b78f1db63b65933c1b38145729bad08b9725b6218dd2649'
-                                  '4098feb938ee86b1ca42cac5fd714b8da943',
-                    'sdk-version': '1'
-                }
-            ).json()['is_valid']
-        except Exception:
-            self.variables['retries'] += 1
-            self._checker(arg)
-        else:
-            if available:
-                self.variables['available'] += 1
-                print(f'[AVAILABLE] {arg}')
-                with open('Available.txt', 'a') as f:
-                    f.write(f'{arg}\n')
-            else:
-                self.variables['unavailable'] += 1
-                print(f'[UNAVAILABLE] {arg}')
-
-    def _multi_threading(self):
-        threading.Thread(target=self._update_title).start()
-        for username in self.usernames:
-            while True:
-                if threading.active_count() <= 300:
-                    threading.Thread(target=self._checker, args=(username,)).start()
-                    break
-                else:
-                    continue
-
-    def _update_title(self):
-        while (checked := (self.variables['available'] + self.variables['unavailable'])) < len(
-            self.usernames
-        ):
-            os.system(
-                f'title [TikTok Username Checker] - Checked: {checked}/{self.total_usernames} ^| Av'
-                f'ailable: {self.variables["available"]} ^| Unavailable: '
-                f'{self.variables["unavailable"]} ^| Retries: {self.variables["retries"]}'
-            )
-            time.sleep(0.2)
-        os.system(
-            f'title [TikTok Username Checker] - Checked: {checked}/{self.total_usernames} ^| Availa'
-            f'ble: {self.variables["available"]} ^| Unavailable: {self.variables["unavailable"]} ^|'
-            f' Retries: {self.variables["retries"]} && pause >NUL'
-        )
-
-    def setup(self):
-        error = False
-        if os.path.exists((usernames_txt := 'abd.txt')):
-            with open(usernames_txt, 'r', encoding='UTF-8', errors='replace') as f:
-                self.usernames = f.read().splitlines()
-            self.total_usernames = len(self.usernames)
-            if self.total_usernames == 0:
-                error = True
-        else:
-            open(usernames_txt, 'a').close()
-            error = True
-
-        if error:
-            print('[!] Paste the usernames in abd.txt')
-            os.system(
-                'title [TikTok Username Checker] - Restart required && '
-                'pause >NUL && '
-                'title [TikTok Username Checker] - Exiting...'
-            )
-            time.sleep(3)
-        else:
-            self._multi_threading()
-
-
-if __name__ == '__main__':
-    os.system('cls && title [TikTok Username Checker]')
-    main = Main()
-    main.setup()
+for i in range(1):
+ t=threading.Thread(target=us,args=())
+ t.start()
